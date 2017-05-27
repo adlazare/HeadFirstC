@@ -1,0 +1,5 @@
+turtle.o: turtle.c
+	gcc -c turtle.c
+
+turtle: turtle.o
+	gcc turtle.o -o turtle

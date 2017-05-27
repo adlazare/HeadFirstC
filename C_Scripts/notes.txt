@@ -1,0 +1,519 @@
+Terms to remember:
+
+	-Sentinel Character: '/0' added to the end of a character array in C, used to determine 			     where the array ends. So if an array is holding the string    				     'Shatner', the string is stored in memory like this:
+			     'Shatner/0'. This is often called the NULL character by experienced
+			     C coders. This NULL character takes up an extra space in the array.
+
+			     When you create a character array, or 'char array', account for the
+			     extra space you will need at the end. If you need to record a card
+			     name that will be max 2 characters long, define the array as such:
+			     char card_name[3].
+
+// C Relies on you to keep track of the length of arrays..it is not good at doing this itself
+
+// '' Single quotes are used for individual characters, "" Double quotes are used for strings
+
+// When you define a string using double quotes, e.g. "Shatner", this is called a String 	 Literal
+
+// You can define strings either with char arrays or string literals, the only difference being that if defined as a string literal, the string will be constant, meaning that you cannot change individual characters in the string later on. This is because string literals are stored differently in memory. If you try to change a character in a string literal you will get a 'BUS error' when you compile, which basically means you can't update that piece of memory.
+
+	-Operators
+		> += : Add an amount to a variable e.g. money += 2; this will add 2 to money
+		> -= : Subtract an amount
+	
+		> ++ : Add 1 to a variable e.g. money++; 
+		> -- : Subtract 1 from a variable
+
+		> && : Used in an if statement, requires both conditions to be true
+			e.g. if ((financially_stable) && (brave))
+				move_to_cali();
+		> || : The or operator, requires only one of the conditions to evaluate to true
+			e.g. if (thinking_about_food || thinking_about_giving_up)
+				stay_motivated();
+		
+		> ! : The 'not' operator, it reverses the value of a condtion
+			e.g. if (!hungry)
+				do_not_eat();
+
+
+
+				
+
+
+// To see what the return value of a program is, type 'echo $?' into the console after running it
+
+// In C, boolean values are represented by numbers. 0 is false, any other number is true.
+
+
+// A control statement decides of a section of code will be run..for example: while loops & switch statements
+
+	built-in C functions:
+		> do / while loop : This runs the section of the code in braces before checking the
+				    condition for the while statement
+
+				    do {
+					/* But lottery ticket */
+				    } while(have_not_won);
+
+
+
+		> for loop : A more concise version of the 'while' loop that uses a counter (i++) to
+			     repeat the loop
+
+			     int counter;
+			     for (counter = 1; counter < 11; counter++) {
+			     	printf("%i green bottles, hanging on the wall\n", counter);
+			     }
+
+// If there is only one line in the body of a loop, you can omit the braces
+
+
+// The 'break;' command is used to break out of loops & switch statements, breaks do not work for if statements
+
+// 'continue;' is used to skip whatever code comes after it in the body of the loop and to continue from the
+    start of the loop
+
+// An argument for a function is a local variable that gets its value from the code that calls it
+
+// A 'void' type function does not need a return statement...this is because it is not meant to 
+   calculate stuff, but rather to do stuff. Defined as 'void <function name> ()' 
+
+	C coding tricks:
+		> Chaining assignments : This is used to assign the same value to multiple variables.
+					 The statement 'x = 4' has a value of 4, so y = (x = 4) is the
+					 same as saying y = 4
+
+					 e.g. y = x = 4
+
+===============================================================================
+==--Pointers & Memory--========================================================
+===============================================================================
+
+// A pointer is just the address of a piece of data in memory
+
+// When you declare a variable inside a function like main(), the computer stores it in 
+   a section of memory called the 'stack'
+
+// Any variable called outside of a function is stored in the 'globals' section of memory
+
+	Finding the memory address of a variable:
+		
+		> & : The & operator allows you to find the memory address of a variable
+
+		       e.g. printf("x is stored at %p\n", &x);
+		
+			* &x is the address of variable x in memory
+
+		> %p : Use this in printf statements to print out the memory address in hex (base 16)7
+
+// When you call a function, you don't send the variable as an argument, you just send it's value
+
+// If you declare a variable in the main() function, and then you pass that variable to another 
+   function that manipulates the value, the variable in your main() function is unchanged
+   because it is a local variable
+
+// So basically, the function you passed that variable to receives a copy of the value & it
+   creates it's own local variable and makes changes to that. Your main() function will never 
+   see that new value
+
+	Passing a variable's address instead of it's value:
+		
+		> &x : Add the ampersand at the start of your variable to pass it's address to a
+		       function. This tells the function where that variable is stored in memory
+		       which allows it to update it at the source.
+
+// Pointers make it easier to share memory
+
+
+	The 3 things you need to do to use pointers:
+	
+		> Get the address of a variable & create a pointer variable
+			
+			> Get memory address
+
+				int x = 4;
+				printf("x lives at %p\n", &x);
+
+			> Create pointer var
+
+				int *address_of_x = &x;
+
+		> Read the contants of an address
+
+			int value_stored = *address_of_x;
+
+		> Change the contents of an address
+
+			*address_of_x = 99;
+
+// The & operator takes a piece of data and tells you where it's stored
+
+// The * operator takes an address and tells you what's stored there
+
+// Use the 'sizeof' command to find out how much space something takes in memory
+   also use %i to print the sizeof output in a printf statement
+
+	e.g. sizeof(int) or sizeof("Turtles!")
+
+// When you create an array, the memory address of the first character is associated with 
+   the array variable. Basically, it's already a pointer. If you use sizeof("hey guys!")
+   the size will usually be 4 or 8 & that's because it's actually the size of the memory
+   address where the first character is stored
+
+	Operators:
+	
+		> sizeof : tells the amount of space a piece of data takes up in memory
+
+				e.g. sizeof("Turtles!");
+				     sizeof(int);
+
+// When you pass an array to a function, you are passing the array variable and it will be
+   treated as a pointer, pointing to the memory address of the first character in the array
+
+// When you use 'sizeof' on an array, C is smart enough to determine that you want to know
+   how big the array is...whereas the sizeof a pointer is 4 on a 32-bit system & 8 on a 64-bit system
+
+// When you create an array (char s[]) and you declare '&s', what you get is the contents of the
+   array, not the memory address.
+
+// When you assign an array to a pointer variable, the pointer will only know the memory address of 
+   the first character in the array..it does not know that it is an array..so essentailly there is
+   information loss, in C that is commonly called 'Pointer Decay' or just 'Decay'
+   It's important to keep track of where your arrays decay in your code because it can cause
+   very subtle bugs in your code
+
+// You can't point array variables at anything else because they don't have allocated storage
+
+// You can read the first element of an array by using either array[0] or *array
+   They both point to the first element in the array
+
+	Pointer Arithmetic:
+	
+		> *(array + 2) : This expression is equivalent to array[2] & can be used to 
+				 reference the 3rd value in the array
+
+				 The two expressions array[i] & *(array + i) are equivalent
+				 This is why indexes begin with index 0, because the index
+				 is just the number added to the pointer to find the location
+				 of the element
+
+// DO NOT USE 'GETS' COMMAND, EVER!
+
+// fgets() is a safe method for inputting strings as it requires you to set an input limit
+
+	Using fgets():
+
+		> fgets(array_name, sizeof(array_name), stdin); : the first argument is a pointer, 
+								  the 2nd is the size of the array,
+								  & the third, stdin, just means that
+								  that the data will be coming from
+								  the keyboard.
+
+// While fgets is safe, it is also limiting in that you can only enter data for on field at a time &
+   only strings at that..no other data types
+
+// Scanf allows you to enter data into more than one field at a time as well as allowing you to
+   enter structured data
+
+// One drawback of scanf is that you can't enter spaces..so only one word can be entered (one string)
+   while fgets() has no problem with spaces
+
+// You cannot modify a string literal..so for instance char *cards = "JQK"; creates a string literal
+   so in this case you cannot say cards[1] = cards[2]...but if you create an array from a string 
+   literal such as char cards[] = "JQK"; then you can modify it
+
+// The problem with trying to change a string literal is that it is placed in the constants 
+   section of the memory when the program compiles, which is a read-only portion of memory hence
+   you cannot change anything in there & your program will crash. So, when you need to declare
+   a string literal, always use 'const' e.g. 'const char *s = "some string";
+
+// A declaration is a piece of code that declares that something (a variable, a function) exists
+
+// A definition is a piece of code that says what something is.
+
+
+
+	Creating an array of arrays:
+
+		> char tracks[][80] = {
+			"I left my heart in Harvard Med School",
+			"Newark, Newark - a wonderful town",
+			"Dancing with a Dork",
+			"From here to maternity",
+			"The girl from Iwo Jima",
+
+		> The first set of brackets is for the array of all strings, the second bracket
+		  is used for each individual string
+
+
+	Functions in string.h library:
+
+		> strchr() : Find the location of a character inside a string
+
+		> strcmp() : Compare two strings
+
+		> strstr() : Find the location of a string inside another string
+
+			e.g. strstr("dysfunctional", "fun");
+
+		> strcpy() : Copy one string to another
+
+		> strlen() : Find the length of a string
+
+		> strcat() : Concatenate two strings
+
+===============================================================================
+==--Creating Small Tools--=====================================================
+===============================================================================
+
+	Using 'fprintf' instead of 'printf' & 'fscanf' instead of 'scanf':
+
+		format: 
+
+			> fprintf(stdout, "insert text here");
+		
+		format to print out errors:
+
+			> fprintf(stderr, "insert error message here");
+
+			> fscanf(stdin, ...)
+
+	Redirecting standard output & standard input:
+
+		Let's say ./geo2json is the program, gpsdata.csv is the data & output.json is where
+		we want the modified data to be sent. Use this command in the command line to do so:
+
+			> ./geo2json < gpsdata.csv > output.json
+
+		To print out standard error instead of standard output, use the '2>' symbol instead:
+
+			> ./geo2json 2> errors.txt
+
+// Standard input & standard output are by default set to keyboard & display. You can redirect these
+	using the command line with the '<' symbol (stdin) & '>' (stdout)
+
+	Connecting seperate programs using the command line:
+
+		If you want to set the standard output of a program to the standard input of
+		another program, use the '|' pipe symbol:
+
+			> bermuda | geo2json
+
+
+// Each program is given 3 streams by default, standard input, standard output & standard error. If 	you need more data streams, you are not limited to those 3, you can 'roll' your own data streams
+    by setting a pointer to a file in the program. 
+
+	Setting a pointer to a file:
+
+		> FILE *in_file = fopen("input.txt", "r");
+	
+			* Here we have created a pointer to an existing file, used the fopen command
+			  to open it, and the "r" signifies 'read' mode, whereas a 'w' would be
+			  'write' mode and 'a' would be 'append' mode
+
+			* Use fprintf() to write to a file and fscanf() to read from a file 
+
+
+// When you're done using a data stream, always make sure to close it using fclose()
+	
+	* fclose(in_file);
+	  fclose(out_file);
+
+
+// gcc filename.c -o filename && ./filename
+
+
+	The 2nd form of the Main() function:
+	
+		> This form of the main() function allows you to pass command-line arguments
+		  to the program
+
+		> int main(int argc, char *argv[])
+		  {
+			... Do stuff ...
+
+		  }
+
+			* For example, if we have a program called 'Categorize.c' that allows us to categorize data into 3 different categories, using data from
+			  source file, we have one input file (spooky.csv) and 3 output files we'll be using. The command to execute this would look something like this:
+
+			> ./categorize Ship ship.csv Elvis elvis.csv the_rest.csv
+
+			* The first argument is the program name, the 2nd in this case is the category, the 3rd is the output file we'll use for that category & so on
+
+			* Therefore, we have 6 arguments in total, making argc == 6
+
+			* Using this form of the main() function allows the user to tweak the program before running it allowing for increased flexibility without the need
+			  to recompile the program under a different configuration
+
+// There are two versions of the main() function, one with options and one without.
+
+ There are two versions of the
+main() function—one with
+command-line arguments, and one
+without.
+
+ Command-line arguments are
+passed to main() as an argument
+count and an array of pointers to the
+argument strings.
+
+ Command-line options are
+command-line arguments prefixed
+with “-”.
+
+ You define valid options by passing a
+string to getopt() like ae:.
+
+ A “:” (colon) following an option
+in the string means that the option
+takes an additional argument.
+
+ getopt() will record the options
+argument using the optarg
+variable.
+
+ After you have read all of the options,
+you should skip past them using the
+optind variable.
+
+ The getopt() function helps you
+deal with command-line options.
+
+	Casting:
+
+		> int x = 7
+		  int y = 3
+
+		  float z = 0
+
+		> If you want to divide x & y and get a decimal output, you must cast the ints as floats
+
+		  float z = x / y
+
+		> ^^^ this will not work, output will be 3.0000, this is because x & y are still being treated as
+		 integers. Instead of defining x & y as floats, just use casting
+
+		> float z = (float)x / (float)y
+
+
+
+===============================================================================
+==--DATA TYPES--===============================================================
+===============================================================================
+
+// Most functions will return an int. I'm not 100% sure right now why that is, my guess is that because functions mainly
+   pass integer values to let the main function know if they were able to execute properly or not. For example, a function
+   that calculates tax will pass a 0 to the main function if it ran properly, whereas a function that failed to run will
+   pass any number 1 or above to let the main function know there was an error.
+
+// Anyways the point here is, if the compiler sees a function called that hasn't been defined yet, it will make a note for
+   itself to look out for that function as it continues to compile. As for any data that was being passed from said function,
+   it will assume that the data type is INT because that's what it usually is. So if, once it compiles & finds that function, 
+   the type actually used is a Float, it will have a conflicting type. It will have created duplicate functions at this point, 
+   one with the assumed INT type & one with the actual FLOAT type.
+
+// The solution here is not to re-order your functions so they will be defined before they are called, but rather to 
+   create a function declaration that explicitly lets the compiler know what type that function will return. E.g.:
+
+	> float add_with_tax();
+
+// This can be placed at the top of the script after the header files, or once you have a growing list of functions,
+   you can create your own header file. Use a '.h' extension for this file.
+
+// When calling this new header file you created, use "" double quotes instead of <> angle brackets, angle brackets tell
+   the compiler to look in the directory that contains library files, whereas double quotes tell it to look in the local folder
+
+
+// Creating makes files
+	
+	> A 'target' is a file that is going to be generated
+	
+	> A 'dependency' is a file needed to generate the target file
+
+	> syntax:
+			
+		>> target: dependency1 dependency2 ...
+		
+			recipe (e.g. 'gcc -c launch.c')
+
+// 'Make' is designed to automate the process of compiling code based on recently updated C files. Instead of recompiling every single
+    file that is part of a program, we can have Make check the timestamps on our C files & then update the relevant object files & link
+    those together to create the executable file. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

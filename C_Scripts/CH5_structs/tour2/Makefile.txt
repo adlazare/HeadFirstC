@@ -1,0 +1,4 @@
+tour2.o: tour2.c
+	gcc -c tour2.c
+tour2: tour2.o
+	gcc tour2.o -o tour2

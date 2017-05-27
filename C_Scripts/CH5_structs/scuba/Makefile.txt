@@ -1,0 +1,5 @@
+scuba.o: scuba.c
+	gcc -c scuba.c
+
+scuba: scuba.o
+	gcc scuba.o -o scuba

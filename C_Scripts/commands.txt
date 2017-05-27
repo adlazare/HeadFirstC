@@ -1,0 +1,25 @@
+Useful commands:
+
+	// compiling a C script in command line
+	> gcc filename.c -o filename
+
+	// compiling a C script in command line & immediately running it
+	> gcc filename.c -o filename && ./filename
+
+	// run a C program
+	> ./filename
+
+	// set the standard input of program you are running to a file instead of the keyboard
+	> ./filename < filename.txt
+
+	// Compile all C source files in current directory into object files (*.c gets replaced with all the C filenames)
+	> gcc -c *.c
+
+	// Link together all object files in current directory (*.o gets replaced with all the Object filenames)
+	> gcc *.o -o filename
+
+	// recompile a single C file
+	> gcc -c filename.c
+	
+
+

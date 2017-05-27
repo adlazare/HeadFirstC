@@ -1,0 +1,4 @@
+tour.o: tour.c
+	gcc -c tour.c
+tour: tour.o
+	gcc tour.o -o tour

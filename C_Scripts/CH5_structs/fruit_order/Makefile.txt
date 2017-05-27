@@ -1,0 +1,4 @@
+fruit_order.o: fruit_order.c
+	gcc -c fruit_order.c
+fruit_order: fruit_order.o
+	gcc fruit_order.o -o fruit_order
