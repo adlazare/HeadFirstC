@@ -12,6 +12,9 @@ Useful commands:
 	// set the standard input of program you are running to a file instead of the keyboard
 	> ./filename < filename.txt
 
+	// set the standard output of program you are runing (output to .txt file for example)
+	> ./filename < filename.txt
+
 	// Compile all C source files in current directory into object files (*.c gets replaced with all the C filenames)
 	> gcc -c *.c
 
@@ -20,6 +23,3 @@ Useful commands:
 
 	// recompile a single C file
 	> gcc -c filename.c
-	
-
-
